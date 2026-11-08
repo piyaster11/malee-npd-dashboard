@@ -26,6 +26,9 @@ Single-file static dashboard (`index.html`, EN/ไทย toggle, no external scr
 - Search interest is not sales. Google scales each word to its own peak, so two charts cannot be compared by height.
 - Each word is a link, “Open in Google Trends ↗”, encoding the query, `geo=TH`, the window (`today 5-y` or `today 3-m`), and `hl` for the page language. The same pattern as the public Thai Credit Radar page. Empty cards stay hatched and still have the link.
 - Saved points are also in `trends-weekly.json`. A live Google re-check can differ by a few points because Trends samples searches.
+- Click a saved chart, or a word on the 5-year pulse, to expand it. The expanded chart uses the same saved weeks, with the incomplete week of 8 Nov 2026 left off. Related-search scores stay hidden.
+- The pulse colours each saved word on its own monthly peak. A darker row is not more searches than a paler row. Words that were not fetched have no coloured cells.
+- Compare draws up to four saved lines, each on its own 0–100 peak. That picture is shape only, not a search-volume ranking. No joint Google series was downloaded (HTTP 429, not retried). The button opens those exact words together on Google Trends.
 - Related-search words saved on 8 Nov 2026 are listed without their scores. Those scores are not recomputed from the weekly points.
 - There is no `mockTrend` series and no synthetic points in the market Trends section.
 

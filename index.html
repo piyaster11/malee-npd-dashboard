@@ -398,6 +398,29 @@ pre.cmd{background:#14181b;color:#e8eceb;border-radius:8px;padding:10px 12px;fon
 .banner.real{background:var(--accent-soft);border-bottom-color:#a9d6c5;color:#14433a}.banner.real span{color:#24433a}
 .hbrow .sb{display:block;color:var(--mute);font-size:10.5px;line-height:1.35}
 
+
+.chartbtn{display:block;width:100%;border:0;background:none;padding:0;cursor:pointer}
+.chartbtn:focus-visible,.heat button.lab:focus-visible,.chip:focus-visible,.mbox .x:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.chartbtn svg{width:100%;height:auto;display:block}
+.modal{position:fixed;inset:0;background:#14181bcc;z-index:80;display:flex;align-items:flex-start;justify-content:center;padding:12px;overflow:auto}
+.modal[hidden]{display:none}
+.mbox{background:#fff;border-radius:14px;max-width:980px;width:100%;margin:20px 0 28px;padding:16px 16px 20px;position:relative}
+.mbox .x{position:absolute;right:6px;top:4px;width:44px;height:44px;font-size:28px;line-height:1;border:0;background:none;cursor:pointer;color:var(--mute)}
+.big svg{width:100%;height:auto;display:block;touch-action:none}
+.tip{font-size:12.5px;min-height:1.4em;margin-top:4px}
+.heat{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.heat table{border-collapse:separate;border-spacing:2px;font-size:12px;min-width:880px}
+.heat button.lab{display:block;width:132px;text-align:right;background:none;border:0;font:inherit;font-size:12px;cursor:pointer;padding:0 4px 0 0;color:var(--ink)}
+.heat td.c{height:16px;border-radius:3px;min-width:9px}
+.heat td.c.miss{background:repeating-linear-gradient(135deg,#f6f7f7,#f6f7f7 3px,#fff 3px,#fff 6px)}
+.heat th{font-weight:500;color:var(--faint);font-size:11px;text-align:left;white-space:nowrap}
+.heat tr.th td{padding-top:8px;font-weight:650;font-size:12.5px}
+.cmp-pick{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
+.chip{font:inherit;font-size:12.5px;border:1px solid var(--line);background:#fff;border-radius:99px;padding:4px 10px;cursor:pointer}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font-size:12.5px;margin:0 0 8px}
+.legend i{display:inline-block;width:18px;height:3px;border-radius:2px;vertical-align:middle;margin-right:5px}
+body.modal-open{overflow:hidden}
+@media print{.modal{display:none!important}}
 </style>
 </head>
 <body>
@@ -425,6 +448,7 @@ pre.cmd{background:#14181b;color:#e8eceb;border-radius:8px;padding:10px 12px;fon
   <section class="panel" id="p-data"></section>
 </main>
 <footer><div class="wrap" id="foot"></div></footer>
+<div class="modal" id="trend-modal" hidden><div class="mbox" role="dialog" aria-modal="true" aria-labelledby="trend-modal-title"><button type="button" class="x" id="trend-modal-close">×</button><div id="trend-modal-body"></div></div></div>
 <script>
 /* ===== data.js — ALL IDEAS, SCORES AND TRACKER NUMBERS BELOW ARE SAMPLE (made up to show layout). NOT Malee data. ===== */
 const CRIT=[
@@ -719,7 +743,10 @@ function tAnalyze(key){
   const sm=v.map((_,i)=>_avg(v.slice(Math.max(0,i-3),i+1)));
   const mm=Array.from({length:12},()=>[]);s.forEach((x,i)=>mm[+x[0].slice(5,7)-1].push(v[i]));
   const mavg=mm.map(_avg),mean=_avg(mavg)||1,pk=mavg.indexOf(Math.max(...mavg));
-  const yoy=quote(l52,p52),y5=quote(l52,f52);return _tcache[key]={it,s,v,sm,yoy:yoy.p,y5:y5.p,yoyWhy:yoy.why,y5Why:y5.why,yoyBase:yoy.bb,y5Base:y5.bb,level:_avg(l52),pk,pkx:(mavg[pk]/mean-1)*100,mavg,mean,from:s[0][0],to:s[n-1][0]};
+  const ym={};s.forEach((x,i)=>{(ym[x[0].slice(0,7)]=ym[x[0].slice(0,7)]||[]).push(v[i])});
+  const months=Object.keys(ym).sort().map(k=>[k,_avg(ym[k])]);
+  let pki=0;for(let i=1;i<v.length;i++)if(v[i]>v[pki])pki=i;
+  const yoy=quote(l52,p52),y5=quote(l52,f52);return _tcache[key]={it,s,v,sm,yoy:yoy.p,y5:y5.p,yoyWhy:yoy.why,y5Why:y5.why,yoyBase:yoy.bb,y5Base:y5.bb,level:_avg(l52),pk,pkx:(mavg[pk]/mean-1)*100,mavg,mean,months,peak:s[pki][0],from:s[0][0],to:s[n-1][0]};
 }
 function trendChip(key){
   const a=key?tAnalyze(key):null;
@@ -766,7 +793,7 @@ function vTrends(){
     const lab=a.yoy==null?L('No % quoted','ไม่ใส่ %'):{up:L('Rising','เพิ่มขึ้น'),dn:L('Falling','ลดลง'),fl:L('Flat','ทรงตัว')}[c];
     const rs=(a.it.rising||[]).slice(0,3);
     return `<div class="card" data-topic="saved"><h4><span><a href="${esc(trendHref(t[1],'today 5-y','TH'))}" target="_blank" rel="noopener">${esc(t[1])} ↗</a> <small>${L(t[2],t[3])}</small></span><span class="arrow ${c}">${lab}${a.yoy==null?'':' '+sgn(a.yoy)+'%'}</span></h4>
-     ${spark(a,col)}
+     <button type="button" class="chartbtn" data-trend="${t[0]}" aria-label="${esc(L('Expand chart','ขยายกราฟ'))}: ${esc(t[1])}">${spark(a,col)}</button>
      <div class="st">${L('vs year before','เทียบปีก่อน')}: <b>${pctLabel(a.yoy,a.yoyWhy)}</b> · ${L('vs earliest year in this file','เทียบปีแรกในไฟล์นี้')}: <b>${pctLabel(a.y5,a.y5Why)}</b><br>
      ${a.level<1?L('Latest year averages under 1 on this word’s own scale. That is not proof that searches stopped.','ปีล่าสุดเฉลี่ยต่ำกว่า 1 บนสเกลของคำนี้เอง ไม่ใช่หลักฐานว่าคนเลิกค้นหา'):`${L('Typical week = ','สัปดาห์ทั่วไป = ')}<b>${fm(a.level)}%</b> ${L('of its own peak','ของจุดสูงสุดของตัวเอง')}`}</div>
      <div style="display:flex;align-items:center;gap:8px;margin-top:4px">${seasonBars(a)}<span class="st" style="flex:1">${a.pkx>=25?`${L('Busiest month','เดือนที่ค้นหามากสุด')}: <b>${L(MON[a.pk][0],MON[a.pk][1])}</b> (${sgn(a.pkx)}% ${L('above an average month','เหนือเดือนเฉลี่ย')})`:L('No clear season','ไม่เห็นฤดูกาลชัด')}</span></div>
@@ -778,12 +805,175 @@ function vTrends(){
   const nm=x=>`${L(x.t[2]+' · '+x.t[1],x.t[1])} (${sgn(x.a.yoy)}%)`;
   return `<div class="callout">${up.length||dn.length?`<b>${L('In plain words','สรุปง่าย ๆ')}:</b> ${up.length?L('searches up on the year before: ','ค้นหาเพิ่มขึ้นจากปีก่อน: ')+up.map(nm).join(', ')+'. ':''}${dn.length?L('searches down: ','ค้นหาลดลง: ')+dn.map(nm).join(', ')+'. ':''}`:L('No saved word with a solid base moved more than 10% against last year.','ไม่มีคำที่ฐานสูงพอและเปลี่ยนเกิน 10% เทียบปีก่อน')} <span class="note">${L('Average of the last 52 complete weeks vs the 52 before. Words with very low search interest are left out. A rise is a question to ask, not a conclusion. Search interest is not sales.','ค่าเฉลี่ย 52 สัปดาห์ล่าสุดที่ครบแล้วเทียบกับ 52 สัปดาห์ก่อนหน้า ตัดคำที่คนค้นน้อยมากออก การเพิ่มขึ้นคือคำถามที่ควรถามต่อ ไม่ใช่ข้อสรุป ความสนใจในการค้นหาไม่ใช่ยอดขาย')}</span></div>
    <div class="spk">${cards}</div>
+   ${pulseChart()}<div id="npd-compare">${compareInner()}</div>
    <p class="note" style="margin-top:8px">${L('How to read: each line is the 4-week average of saved weekly points for Thailand, not a forecast and not a comparison of height between words (each word is scaled to its own peak). The week of 8 Nov 2026 is left off every chart because that week was still in progress when the file was pulled at 09:59 Bangkok. The pale block is the latest 52 complete weeks. “Vs year before” is those 52 weeks against the 52 before them. “Vs earliest year” is those 52 weeks against the first 52 weeks in the file (from 7 Nov 2021). A percentage is omitted when the earlier average is under 15, or when the latest year is so low that a large minus would be read as “searches stopped”. Related-search scores from the old file are omitted for the same reason: they cannot be recomputed from the weekly points.','วิธีอ่าน: เส้นคือค่าเฉลี่ย 4 สัปดาห์ของจุดรายสัปดาห์ที่บันทึกไว้ในไทย ไม่ใช่การพยากรณ์ และเทียบความสูงข้ามคำไม่ได้ เพราะแต่ละคำใช้สเกลของตัวเอง สัปดาห์ของ 8 พ.ย. 2569 ถูกตัดออกจากทุกกราฟ เพราะสัปดาห์นั้นยังไม่จบตอนดึงไฟล์เวลา 09:59 น. แถบสีจางคือ 52 สัปดาห์ล่าสุดที่ครบแล้ว “เทียบปีก่อน” คือ 52 สัปดาห์นั้นเทียบกับ 52 สัปดาห์ก่อนหน้า “เทียบปีแรกในไฟล์นี้” คือเทียบกับ 52 สัปดาห์แรกในไฟล์ (ตั้งแต่ 7 พ.ย. 2564) จะไม่ใส่เปอร์เซ็นต์เมื่อค่าเฉลี่ยช่วงก่อนหน้าต่ำกว่า 15 หรือเมื่อปีล่าสุดต่ำมากจนเครื่องหมายลบขนาดใหญ่จะถูกอ่านว่า “คนเลิกค้นหา” คะแนนคำค้นที่เกี่ยวข้องจากไฟล์เดิมก็ไม่แสดง เช่นกัน เพราะคำนวณใหม่จากจุดรายสัปดาห์ไม่ได้')}</p>
    <div class="card" id="trend-src"><h3 style="margin:12px 0 4px">${L('Sources — open each word on Google Trends','แหล่งข้อมูล — เปิดแต่ละคำบน Google Trends')}</h3>
    <p class="note">${L('Source','ที่มา')}: <a href="https://trends.google.com/trends/explore?date=today%205-y&geo=TH" target="_blank" rel="noopener">Google Trends</a> · ${L('Geo: Thailand (TH) · Period: past 5 years (today 5-y), weekly · Retrieved','พื้นที่: ประเทศไทย (TH) · ช่วงเวลา: 5 ปีย้อนหลัง (today 5-y) รายสัปดาห์ · ดึงเมื่อ')} <b>8 Nov 2026, 09:59 Bangkok</b> · ${L('not re-downloaded after HTTP 429','ไม่ได้ดึงซ้ำหลัง HTTP 429')} · <a href="https://github.com/GeneralMills/pytrends" target="_blank" rel="noopener">pytrends</a> · <a href="trends-weekly.json" target="_blank" rel="noopener">${L('raw weekly file (JSON)','ไฟล์รายสัปดาห์ (JSON)')}</a> · <a href="https://support.google.com/trends/answer/4365533" target="_blank" rel="noopener">${L('how Google scales 0–100','วิธีที่ Google คำนวณสเกล 0–100')}</a></p>
    <p class="note">${L('Google Trends samples searches, so a live re-check can differ by a few points from the saved numbers; the shape and peak months should match. Nothing here updates by itself.','Google Trends ใช้ข้อมูลสุ่มตัวอย่าง ค่าที่ตรวจซ้ำอาจต่างจากที่บันทึกไว้เล็กน้อย แต่รูปแบบและเดือนสูงสุดควรตรงกัน หน้านี้ไม่ได้อัปเดตเอง')}</p></div>
    ${extraSection()}`;
 }
+
+/* Expanded chart, 5-year pulse, and shape compare.
+   Weekly points only, last incomplete week already removed in tAnalyze.
+   No joint Google series: Google returned HTTP 429 and was not asked again. */
+const PULSE_GROUPS=[
+  {en:'Juice',th:'น้ำผลไม้',col:'#0a7b5c',keys:['fruit_juice','orange_juice','fruit_veg_juice']},
+  {en:'Coconut water',th:'น้ำมะพร้าว',col:'#12a594',keys:['coconut_water']},
+  {en:'Dairy and plant drinks',th:'นมและเครื่องดื่มจากพืช',col:'#3e63dd',keys:['protein_milk','oat_milk']},
+  {en:'Functional drinks',th:'เครื่องดื่มฟังก์ชัน',col:'#e5484d',keys:['matcha','fruit_tea','kombucha','probiotic']},
+  {en:'Other saved searches',th:'คำค้นอื่นที่บันทึกไว้',col:'#f5a524',keys:['collagen','no_sugar']}
+];
+const CMP_COLS=['#e5484d','#3e63dd','#f5a524','#12a594'];
+let cmpPick=['coconut_water','fruit_juice','protein_milk','oat_milk'];
+let trendReturn=null;
+function pulseColor(key){const g=PULSE_GROUPS.find(x=>x.keys.includes(key));return g?g.col:'#0a7b5c'}
+function wordOf(key){return TWORDS.find(t=>t[0]===key)}
+function bigChart(keys,cols){
+  const W=900,H=300,P={l:46,r:12,t:14,b:28};
+  const as=keys.map(tAnalyze);
+  if(as.some(a=>!a))return '';
+  const s0=as[0].s,n=s0.length;
+  const X=i=>P.l+i/(n-1)*(W-P.l-P.r);
+  const Y=v=>P.t+(1-Math.max(0,Math.min(100,v))/100)*(H-P.t-P.b);
+  let g='';
+  [0,25,50,75,100].forEach(y=>{g+=`<line x1="${P.l}" x2="${W-P.r}" y1="${Y(y)}" y2="${Y(y)}" stroke="#e6e9e8"/><text x="${P.l-6}" y="${Y(y)+4}" font-size="11" fill="#667075" text-anchor="end">${y}</text>`});
+  g+=`<text x="14" y="${(P.t+H-P.b)/2}" font-size="10" fill="#667075" transform="rotate(-90 14 ${(P.t+H-P.b)/2})" text-anchor="middle">${L('own peak','จุดสูงสุดของคำนี้')}</text>`;
+  s0.forEach((x,i)=>{if(i&&x[0].slice(0,4)!==s0[i-1][0].slice(0,4))g+=`<line x1="${X(i)}" x2="${X(i)}" y1="${P.t}" y2="${H-P.b}" stroke="#e6e9e8" stroke-dasharray="3 3"/><text x="${X(i)+3}" y="${H-6}" font-size="11" fill="#667075">${x[0].slice(0,4)}</text>`});
+  const lines=as.map((a,j)=>{
+    const raw=a.v.map((v,i)=>`${X(i).toFixed(1)},${Y(v).toFixed(1)}`).join(' ');
+    const sm=a.sm.map((v,i)=>`${X(i).toFixed(1)},${Y(v).toFixed(1)}`).join(' ');
+    const one=keys.length===1?`<polyline points="${P.l},${Y(0)} ${raw} ${X(n-1)},${Y(0)}" fill="${cols[j]}" fill-opacity=".08"/><polyline points="${raw}" fill="none" stroke="${cols[j]}" stroke-opacity=".35" stroke-width="1"/>`:'';
+    return one+`<polyline points="${sm}" fill="none" stroke="${cols[j]}" stroke-width="2.2" stroke-linejoin="round"/>`;
+  }).join('');
+  return `<svg viewBox="0 0 ${W} ${H}" class="bc" data-keys="${keys.join(',')}" role="img" aria-label="${esc(L('Weekly search index, each word on its own peak','ดัชนีการค้นหารายสัปดาห์ แต่ละคำเทียบจุดสูงสุดของตัวเอง'))}">${g}${lines}<line class="hl" x1="0" x2="0" y1="${P.t}" y2="${H-P.b}" stroke="#14181b" stroke-opacity="0"/><rect x="${P.l}" y="${P.t}" width="${W-P.l-P.r}" height="${H-P.t-P.b}" fill="transparent" class="hov" data-w="${W}" data-pl="${P.l}" data-pr="${P.r}" data-pt="${P.t}" data-pb="${P.b}"/></svg><div class="tip" aria-live="polite"></div>`;
+}
+function hookHover(root){
+  if(!root)return;
+  root.querySelectorAll('svg.bc').forEach(svg=>{
+    const r=svg.querySelector('.hov'),hl=svg.querySelector('.hl'),tip=svg.nextElementSibling;
+    const keys=svg.dataset.keys.split(',');
+    const W=+r.dataset.w,pl=+r.dataset.pl,pr=+r.dataset.pr;
+    const move=clientX=>{
+      const bb=svg.getBoundingClientRect();
+      const x=(clientX-bb.left)/bb.width*W;
+      const a0=tAnalyze(keys[0]),n=a0.s.length;
+      const i=Math.max(0,Math.min(n-1,Math.round((x-pl)/(W-pl-pr)*(n-1))));
+      const xx=pl+i/(n-1)*(W-pl-pr);
+      hl.setAttribute('x1',xx);hl.setAttribute('x2',xx);hl.setAttribute('stroke-opacity','.45');
+      tip.innerHTML=`<b>${L('Week of','สัปดาห์ที่เริ่ม')} ${esc(a0.s[i][0])}</b> · `+keys.map(k=>{
+        const w=wordOf(k),a=tAnalyze(k);
+        return `${esc(w[1])}: <b>${a.v[i]}</b> <span class="note">${L('own peak','จุดสูงสุดของคำ')}</span>`;
+      }).join(' · ');
+    };
+    r.addEventListener('pointermove',e=>move(e.clientX));
+    r.addEventListener('pointerdown',e=>move(e.clientX));
+  });
+}
+function openTrend(key){
+  const w=wordOf(key),a=tAnalyze(key);
+  if(!w||!a)return;
+  const already=document.getElementById('trend-modal')&&!document.getElementById('trend-modal').hidden;
+  if(!already)trendReturn=document.activeElement;
+  const rs=(a.it.rising||[]).map(r=>r[0]).slice(0,8);
+  const col=pulseColor(key);
+  document.getElementById('trend-modal').dataset.key=key;
+  document.getElementById('trend-modal-close').setAttribute('aria-label',L('Close chart','ปิดกราฟ'));
+  document.getElementById('trend-modal-body').innerHTML=`<p class="note" style="margin:0">${L('Saved weekly file · Thailand · 5 years · incomplete week of 8 Nov 2026 left off','ไฟล์รายสัปดาห์ที่บันทึกไว้ · ไทย · 5 ปี · ตัดสัปดาห์ที่ยังไม่จบของ 8 พ.ย. 2569')}</p>
+   <h2 id="trend-modal-title">${esc(w[1])} <span class="note" style="font-size:15px">${esc(L(w[2],w[3]))}</span></h2>
+   <p class="st">${L('0–100 is this word’s own peak, not a count of searches and not sales. Thick line = 4-week average of saved weeks. Faint line = each saved week.','0–100 คือจุดสูงสุดของคำนี้เอง ไม่ใช่จำนวนครั้งที่ค้นและไม่ใช่ยอดขาย เส้นหนา = ค่าเฉลี่ย 4 สัปดาห์ของสัปดาห์ที่บันทึกไว้ เส้นจาง = แต่ละสัปดาห์ที่บันทึกไว้')} ${L('Peak week','สัปดาห์สูงสุด')}: <b>${esc(a.peak)}</b> · ${L('vs year before','เทียบปีก่อน')}: <b>${pctLabel(a.yoy,a.yoyWhy)}</b></p>
+   <div class="big">${bigChart([key],[col])}</div>
+   <h4 style="margin:12px 0 4px">${L('Related searches saved on 8 Nov 2026','คำค้นที่เกี่ยวข้องที่บันทึกไว้เมื่อ 8 พ.ย. 2569')}</h4>
+   ${rs.length?`<ul class="rq">${rs.map(r=>`<li><span>${esc(r)}</span></li>`).join('')}</ul><p class="note">${L('Scores are not shown. They were not recomputed from the weekly points.','ไม่แสดงคะแนน เพราะไม่ได้คำนวณใหม่จากจุดรายสัปดาห์')}</p>`:`<p class="note">${L('None saved in this file.','ไม่มีในไฟล์นี้')}</p>`}
+   ${trendSrc(w[1],'today 5-y','TH')}`;
+  const m=document.getElementById('trend-modal');
+  m.hidden=false;
+  document.body.classList.add('modal-open');
+  hookHover(m);
+  document.getElementById('trend-modal-close').focus();
+}
+function closeTrend(){
+  const m=document.getElementById('trend-modal');
+  if(!m||m.hidden)return;
+  m.hidden=true;
+  document.body.classList.remove('modal-open');
+  if(trendReturn&&typeof trendReturn.focus==='function')trendReturn.focus();
+}
+function pulseChart(){
+  const first=TWORDS.map(t=>tAnalyze(t[0])).find(Boolean);
+  if(!first)return '';
+  const months=first.months.map(m=>m[0]);
+  const hdr=`<tr><th></th>${months.map(m=>`<th>${m.slice(5)==='01'?m.slice(0,4):''}</th>`).join('')}</tr>`;
+  let rows='';
+  PULSE_GROUPS.forEach(g=>{
+    rows+=`<tr class="th"><td colspan="${months.length+1}" style="color:${g.col}">${esc(L(g.en,g.th))}</td></tr>`;
+    g.keys.forEach(key=>{
+      const w=wordOf(key),a=tAnalyze(key);
+      if(!w)return;
+      if(!a){rows+=`<tr><td class="lab">${esc(w[1])}</td><td colspan="${months.length}" class="note">${L('not available','ไม่มีข้อมูล')}</td></tr>`;return}
+      const mp=Object.fromEntries(a.months),mx=Math.max(...a.months.map(m=>m[1]),1);
+      rows+=`<tr><td><button type="button" class="lab" data-trend="${esc(key)}">${esc(w[1])}</button></td>${months.map(m=>{
+        if(!(m in mp))return `<td class="c miss" title="${esc(w[1]+' '+m+' · '+L('no saved week','ไม่มีสัปดาห์ที่บันทึกไว้'))}"></td>`;
+        const x=mp[m]/mx;
+        return `<td class="c" title="${esc(w[1]+' '+m+': '+Math.round(mp[m])+' · '+L('own peak, monthly average of saved weeks','จุดสูงสุดของคำนี้ ค่าเฉลี่ยรายเดือนของสัปดาห์ที่บันทึกไว้'))}" style="background:${g.col};opacity:${(0.06+0.94*x*x).toFixed(2)}"></td>`;
+      }).join('')}</tr>`;
+    });
+  });
+  const missing=EXTRA.map(t=>`<a href="${esc(trendHref(t[1],'today 5-y','TH'))}" target="_blank" rel="noopener">${esc(t[1])} ↗</a>`).join(' · ');
+  return `<h3 class="sec" id="pulse">${L('The 5-year pulse','ชีพจร 5 ปี')}</h3>
+   <p class="note">${L('Every saved search word on one screen. Colour is that word’s own scale: darkest = its busiest months in the saved file. A dark row is not “more searches” than a pale row. Click a word to expand its chart. The week of 8 Nov 2026 is excluded.','คำค้นที่บันทึกไว้ทุกคำในหน้าจอเดียว สีคือสเกลของคำนั้นเอง สีเข้มสุด = เดือนที่คำนั้นถูกค้นมากที่สุดในไฟล์ แถวที่เข้มไม่ได้แปลว่ามีคนค้นมากกว่าแถวที่จาง คลิกที่คำเพื่อขยายกราฟ ไม่รวมสัปดาห์ของ 8 พ.ย. 2569')}</p>
+   <div class="card heat"><table>${hdr}${rows}</table></div>
+   <p class="note">${L('Not fetched, so they have no pulse cells and no invented colour:','ยังไม่ได้ดึง จึงไม่มีช่องสีและไม่ได้แต่งสีขึ้น') } ${missing}</p>`;
+}
+function compareInner(){
+  cmpPick=cmpPick.filter(k=>tAnalyze(k));
+  if(!cmpPick.length)cmpPick=[TWORDS.find(t=>tAnalyze(t[0]))[0]];
+  const chips=TWORDS.filter(t=>tAnalyze(t[0])).map(t=>{
+    const i=cmpPick.indexOf(t[0]);
+    return `<button type="button" class="chip ${i>=0?'on':''}" data-cmp="${esc(t[0])}" style="${i>=0?'background:'+CMP_COLS[i]+';color:#fff;border-color:transparent':''}" aria-pressed="${i>=0?'true':'false'}">${esc(t[1])}</button>`;
+  }).join('');
+  const legend=cmpPick.map((k,i)=>`<span><i style="background:${CMP_COLS[i]}"></i>${esc(wordOf(k)[1])}</span>`).join('');
+  const words=cmpPick.map(k=>wordOf(k)[1]);
+  const href=trendHref(words.join(','),'today 5-y','TH');
+  return `<h3 class="sec">${L('Compare words','เปรียบเทียบคำค้น')}</h3>
+   <div class="callout" style="border-left-color:#b26a00;background:#fff8ee"><b>${L('Shape only — not search volume.','เทียบรูปทรงเท่านั้น — ไม่ใช่ปริมาณการค้นหา')}</b> ${L('Each line uses the 0–100 scale from that word’s own saved file (100 = its own busiest week). A line that sits higher is not searched more often. These series were pulled one word at a time, so Google normalised each request separately. No joint comparison was downloaded: the first Google request in this update returned HTTP 429 and was not repeated. Nothing below is a ranking.','แต่ละเส้นใช้สเกล 0–100 จากไฟล์ของคำนั้นเอง (100 = สัปดาห์ที่คำนั้นถูกค้นมากที่สุด) เส้นที่อยู่สูงกว่าไม่ได้แปลว่ามีคนค้นบ่อยกว่า อนุกรมเหล่านี้ดึงทีละคำ ดังนั้น Google ปรับสเกลแยกแต่ละครั้ง ไม่ได้ดึงการเปรียบเทียบร่วมกัน: คำขอ Google ครั้งแรกในการอัปเดตนี้ได้ HTTP 429 และไม่ได้ยิงซ้ำ ไม่มีอะไรด้านล่างเป็นการจัดอันดับ')}</div>
+   <div class="card"><div class="cmp-pick">${chips}</div><div class="legend">${legend}</div><div class="big">${bigChart(cmpPick,CMP_COLS)}</div>
+   <p class="note">${L('Pick up to 4 saved words. Compare when the lines rise and fall, not how high they are. For a real shared scale, open these exact words together:','เลือกคำที่บันทึกไว้ได้สูงสุด 4 คำ ดูว่าเส้นขึ้นและลงเมื่อไร ไม่ใช่ว่าเส้นสูงแค่ไหน ถ้าต้องการสเกลร่วมจริง เปิดคำเหล่านี้พร้อมกัน:')} <a href="${esc(href)}" target="_blank" rel="noopener"><b>${L('Open this exact comparison in Google Trends ↗','เปิดการเปรียบเทียบนี้ใน Google Trends ↗')}</b></a></p></div>`;
+}
+function toggleCmp(key){
+  const i=cmpPick.indexOf(key);
+  if(i>=0){if(cmpPick.length>1)cmpPick.splice(i,1)}
+  else{if(cmpPick.length>=4)cmpPick.shift();cmpPick.push(key)}
+  const el=document.getElementById('npd-compare');
+  if(!el)return;
+  el.innerHTML=compareInner();
+  hookHover(el);
+}
+document.addEventListener('click',e=>{
+  if(e.target.id==='trend-modal'||e.target.id==='trend-modal-close'){closeTrend();return}
+  const cmp=e.target.closest('[data-cmp]');
+  if(cmp){toggleCmp(cmp.dataset.cmp);return}
+  if(e.target.closest('a,input,select,textarea'))return;
+  const tr=e.target.closest('[data-trend]');
+  if(tr)openTrend(tr.dataset.trend);
+});
+document.addEventListener('keydown',e=>{
+  const m=document.getElementById('trend-modal');
+  if(e.key==='Escape'){closeTrend();return}
+  if(m&&!m.hidden&&e.key==='Tab'){
+    const f=[...m.querySelectorAll('a,button')].filter(el=>!el.disabled);
+    if(!f.length)return;
+    const first=f[0],last=f[f.length-1];
+    if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}
+    else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}
+  }
+});
+document.addEventListener('click',e=>{
+  if(!e.target.closest('#langseg button'))return;
+  const m=document.getElementById('trend-modal');
+  if(!m||m.hidden)return;
+  const key=m.dataset.key;
+  setTimeout(()=>{if(key)openTrend(key)},0);
+});
 
 /* ---------- price ladder ---------- */
 const BCOL={Malee:'#0a7b5c',Tipco:'#d9480f','Doi Kham':'#862e9c',UFC:'#1971c2','Nestlé':'#343a40',Other:'#adb5bd'};
@@ -1323,7 +1513,7 @@ function vData(){
 
 /* ---------- render + events ---------- */
 const V={insights:vInsights,summary:vSummary,board:vBoard,score:vScore,ready:vReady,post:vPost,mortem:vMortem,data:vData};
-function render(){renderChrome();document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('on',p.id==='p-'+state.tab));document.getElementById('p-'+state.tab).innerHTML=V[state.tab]();fitNav();}
+function render(){renderChrome();document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('on',p.id==='p-'+state.tab));document.getElementById('p-'+state.tab).innerHTML=V[state.tab]();fitNav();if(state.tab==='insights')hookHover(document.getElementById('p-insights'));}
 document.addEventListener('click',e=>{
   const t=e.target.closest('[data-tab],[data-lang],[data-mv],[data-act],[data-scen]');if(!t)return;
   if(t.dataset.tab){state.tab=t.dataset.tab;render();window.scrollTo({top:0});return}
