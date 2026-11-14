@@ -582,6 +582,8 @@ const CONN=[
 const SRC={
  mkt:{n:'Marketeer — juice market 2021–2025 (Nielsen)',u:'https://marketeeronline.co/archives/457382',d:'Mar 2026'},
  q226:{n:'Malee Q2/2026 MD&A (uses Nielsen data)',u:'https://www.maleegroup.com/wp-content/uploads/2026/08/2Q26-MDA_EN_Final-1.pdf',d:'17 Aug 2026'},
+ q326:{n:'Malee Q3/2026 MD&A (reviewed, uses Nielsen data)',u:'https://www.maleegroup.com/wp-content/uploads/2026/11/3Q26-MDA_EN_Final.pdf',d:'11 Nov 2026'},
+ f45q326:{n:'SET F45: Malee Q3/2026 financial performance (reviewed, revised)',u:'https://www.set.or.th/th/market/news-and-alert/newsdetails?id=107652201&symbol=MALEE',d:'11 Nov 2026'},
  q425:{n:'Malee Q4/2025 MD&A',u:'https://www.maleegroup.com/wp-content/uploads/2026/02/Malee-Q425-MDA-EN_Final-1.pdf',d:'Feb 2026'},
  lh:{n:'LH Bank — Industry Outlook 2026: Juice & coconut water',u:'https://www.lhbank.co.th/getattachment/647c6cc0-0b94-4b38-97f7-1c02feac34d3/economic-analysis-Industry-Outlook-2026-Juice-and-Coconut-Water_Jul26',d:'Jul 2026'},
  forbes:{n:'Forbes Thailand — 10 coconut-water brands',u:'https://www.forbesthailand.com/news/marketing/10-coconut-water-brands-revenues-profits-and-thailands-intense-beverage-battle',d:'27 Feb 2026'},
@@ -602,24 +604,24 @@ const TIP='Tipco', MAL='Malee';
 
 /* 1 — market size and growth */
 const JUICE_VALUE=[[2021,8800],[2022,10000],[2023,12000],[2024,11381],[2025,11158]];   /* ฿ million, Nielsen via Marketeer (src mkt) */
-const JUICE_R12={label:'12M to Jun 2026',v:12351.2,yoy:4.5};                              /* Malee Q2/26 MD&A (src q226) */
-const SEGS=[ /* en, th, share %, YoY % (12M to Jun 2026) */
- ['Premium (90–100% juice)','พรีเมียม (น้ำผลไม้ 90–100%)',38,24],
- ['Others','อื่น ๆ',11,20],
- ['Economy (20–25% juice)','ประหยัด (น้ำผลไม้ 20–25%)',29,-5],
- ['Super economy (0–19%)','ประหยัดมาก (0–19%)',5,-4],
- ['Concentrated','น้ำเข้มข้น',2,-10],
- ['Medium (26–89% juice)','กลาง (น้ำผลไม้ 26–89%)',15,-19]];
+const JUICE_R12={label:'12M to Sep 2026',v:12258.8,yoy:3.3};                              /* Malee Q3/26 MD&A (src q326); Oct 2025–Sep 2026 */
+const SEGS=[ /* en, th, share %, YoY % (12M to Sep 2026, Q3 MD&A) */
+ ['Premium (90–100% juice)','พรีเมียม (น้ำผลไม้ 90–100%)',38.4,16.9],
+ ['Others','อื่น ๆ',12.6,48.5],
+ ['Economy (20–25% juice)','ประหยัด (น้ำผลไม้ 20–25%)',29.3,-4.3],
+ ['Super economy (0–19%)','ประหยัดมาก (0–19%)',4.8,4.8],
+ ['Concentrated','น้ำเข้มข้น',1.9,-9.5],
+ ['Medium (26–89% juice)','กลาง (น้ำผลไม้ 26–89%)',12.3,-31.1]];
 const GROW=[ /* en, th, value %, kind(real|est), period en/th, src, note en/th */
  ['Ready-to-drink coconut water','น้ำมะพร้าวพร้อมดื่ม',80,'real',['2025 vs 2024, ฿1.8bn','ปี 2568 เทียบ 2567 ตลาด 1.8 พันล้านบาท'],'forbes'],
- ['Premium juice (90–100%, Nielsen)','น้ำผลไม้พรีเมียม (90–100%)',24,'real',['12 months to Jun 2026','12 เดือนถึง มิ.ย. 2569'],'q226'],
+ ['Premium juice (90–100%, Nielsen)','น้ำผลไม้พรีเมียม (90–100%)',16.9,'real',['12 months to Sep 2026','12 เดือนถึง ก.ย. 2569'],'q326'],
  ['Protein milk','นมโปรตีน',43,'est',['฿3.5bn → about ฿5bn (2025). Our own sum: (5−3.5)/3.5; base year not stated','฿3.5bn → ประมาณ ฿5bn (2568) คำนวณเอง ไม่ระบุปีฐาน'],'bbn'],
  ['Functional drinks (forecast per year)','เครื่องดื่มฟังก์ชัน (คาดต่อปี)',7,'real',['forecast, about 2025','คาดการณ์ ประมาณปี 2568'],'kres'],
  ['Ready-to-drink green tea','ชาเขียวพร้อมดื่ม',5,'real',['MAT Jul 2025, ฿18bn (company statement)','MAT ก.ค. 2568 ตลาด 18 พันล้านบาท (บริษัทแจ้ง)'],'gtea'],
- ['All ready-to-drink fruit & veg juice','น้ำผักผลไม้พร้อมดื่มรวม',4.5,'real',['12 months to Jun 2026, ฿12.35bn','12 เดือนถึง มิ.ย. 2569'],'q226'],
+ ['All ready-to-drink fruit & veg juice','น้ำผักผลไม้พร้อมดื่มรวม',3.3,'real',['12 months to Sep 2026, ฿12,258.8m','12 เดือนถึง ก.ย. 2569 ฿12,258.8 ล้านบาท'],'q326'],
  ['All juice, calendar 2025','น้ำผลไม้รวม ปี 2568',-2,'real',['2025 vs 2024, ฿11,158m (Malee MD&A)','ปี 2568 เทียบ 2567'],'q425'],
- ['Economy juice (20–25%)','น้ำผลไม้ประหยัด (20–25%)',-5,'real',['12 months to Jun 2026','12 เดือนถึง มิ.ย. 2569'],'q226'],
- ['Medium juice (26–89%)','น้ำผลไม้กลาง (26–89%)',-19,'real',['12 months to Jun 2026','12 เดือนถึง มิ.ย. 2569'],'q226']
+ ['Economy juice (20–25%)','น้ำผลไม้ประหยัด (20–25%)',-4.3,'real',['12 months to Sep 2026','12 เดือนถึง ก.ย. 2569'],'q326'],
+ ['Medium juice (26–89%)','น้ำผลไม้กลาง (26–89%)',-31.1,'real',['12 months to Sep 2026','12 เดือนถึง ก.ย. 2569'],'q326']
 ];
 const GROW_NF=[ /* categories we could NOT size */
  ['Plant-based milk (oat, soy, rice)','นมพืช (โอ๊ต ถั่วเหลือง ข้าว)'],
@@ -674,12 +676,14 @@ const MALEE_NUM=[ /* label en/th, value, note en/th, src */
  ['Net profit 2025','กำไรสุทธิ 2568','฿197.4m  (−35.9%)',['2024: ฿308.1m. One-offs ฿128.4m, mostly stock write-down','ปี 2567: ฿308.1m มีรายการพิเศษ ฿128.4m ส่วนมากคือตั้งสำรองสินค้า'],'q425'],
  ['Branded sales 2025','ยอดขายแบรนด์ตัวเอง 2568','฿2,597.3m  (−14.2%)',['2024: ฿3,027.3m. About 33% of revenue; goal 55% by 2028','ปี 2567: ฿3,027.3m ประมาณ 33% ของรายได้ เป้า 55% ในปี 2571'],'q425'],
  ['Contract (CMG) sales 2025','ยอดขายรับจ้างผลิต (CMG) 2568','฿5,157.1m  (−3.4%)',['2024: ฿5,339.6m. Branded + CMG do not add up exactly to revenue; the small rest is not shown','ปี 2567: ฿5,339.6m ยอดแบรนด์ + CMG ไม่เท่ารายได้พอดี ส่วนที่เหลือไม่แสดง'],'q425'],
- ['COCO coconut water 2025','COCO น้ำมะพร้าว 2568','+18% sales',['H1 2026: COCO volume up (Matcha, more modern trade, food service). Baht figure not found','ครึ่งปีแรก 2569: ปริมาณ COCO เพิ่ม ไม่พบตัวเลขเงิน'],'q425'],
- ['Gross margin 2025','อัตรากำไรขั้นต้น 2568','18.0%',['2024: 19.3%. H1 2026: 18.1% (−2.7 pts, trade discounts)','ปี 2567: 19.3% ครึ่งแรก 2569: 18.1%'],'q425'],
- ['Revenue, first half 2026','รายได้ครึ่งแรก 2569','฿3,594.2m  (−3.8%)',['Branded ฿1,158.3m (−16.0%); CMG ฿2,414.0m (+4.7%); domestic +17.3%; international −35.0%','แบรนด์ −16.0% CMG +4.7% ในประเทศ +17.3% ต่างประเทศ −35.0%'],'q226'],
- ['Why branded fell in 2026','ทำไมยอดแบรนด์ลดในปี 2569','Dairy in Cambodia',['Border conflict slowed branded dairy in Cambodia. Dairy baht figures were not split out','ความขัดแย้งชายแดนทำให้นมแบรนด์ในกัมพูชาชะลอ ไม่แยกตัวเลขนม'],'q226'],
- ['Selling costs, first half 2026','ค่าขายและกระจายสินค้า ครึ่งแรก 2569','฿300.3m  (+20.7%)',['Q2 net profit ฿17.0m (−79%)','กำไรสุทธิไตรมาส 2 ฿17.0m (−79%)'],'q226'],
- ['Premium juice market','ตลาดน้ำผลไม้พรีเมียม','฿4,061m  (+14%)',['Dec 2025; Malee says it holds 36% of premium (Q4 MD&A) but 21.9% in the 12 months to Jun 2026 (Q2 MD&A). The two are not explained; check the definition','ธ.ค. 2568; Malee บอกว่าถือ 36% ของพรีเมียม (Q4) แต่ 21.9% ใน 12 เดือนถึง มิ.ย. 2569 (Q2) ยังไม่อธิบาย ต้องตรวจนิยาม'],'q425']
+ ['COCO coconut water','COCO น้ำมะพร้าว','Volume up in 9M 2026',['9M 2026 MD&A: Malee COCO volume increased, helped by COCO Matcha. Baht figure still not found. 2025: +18% sales (Q4 MD&A)','9 เดือน 2569: ปริมาณ COCO เพิ่ม จาก Matcha ยังไม่พบตัวเลขเงิน ปี 2568: ยอดขาย +18%'],'q326'],
+ ['Gross margin','อัตรากำไรขั้นต้น','9M 2026: 17.4%',['−1.8 pts YoY. Q3 2026: 16.8% (Q3 2025: 16.4%). 2025 full year: 18.0%. FY 2026 target revised to 17–19% (was 18–20%)','ลด 1.8 จุด YoY ไตรมาส 3/2569: 16.8% ปี 2568: 18.0% เป้าปี 2569 ปรับเป็น 17–19%'],'q326'],
+ ['Revenue, first 9 months 2026','รายได้ 9 เดือนแรก 2569','฿5,178.3m  (−3.6%)',['Branded ฿1,348.3m (−19.8%); CMG ฿3,802.1m (+5.0%); domestic ฿3,980.2m (+13.4%); international ฿1,198.2m (−35.7%)','แบรนด์ ฿1,348.3m (−19.8%) CMG ฿3,802.1m (+5.0%) ในประเทศ +13.4% ต่างประเทศ −35.7%'],'q326'],
+ ['Q3 2026 net result','ผลไตรมาส 3 ปี 2569','Loss ฿4.2m',['Continuing-operations profit ฿31.3m (−3.1% YoY, +47.4% QoQ). One-time discontinued-ops loss after tax ฿38.8m, including the 30 Sep sale of the 65% stake in Long Quan Safe Food (Vietnam). Q3 revenue ฿1,796.7m (−3.2%). F45 shows a loss of ฿4.173m.','กำไรจากงานต่อเนื่อง ฿31.3m (−3.1% YoY, +47.4% QoQ) ขาดทุนงานที่ยกเลิก ฿38.8m รวมการขายหุ้น 65% ใน Long Quan Safe Food รายได้ไตรมาส 3 ฿1,796.7m F45 ขาดทุน ฿4.173m'],'q326'],
+ ['Why branded fell in 2026','ทำไมยอดแบรนด์ลดในปี 2569','Dairy in Cambodia + juice',['9M MD&A: branded dairy in Cambodia slowed with the border situation, and juice volume slowed. Dairy baht figures were not split out. Q3 branded sales ฿372.9m (−21.2% YoY).','9 เดือน: นมแบรนด์ในกัมพูชาชะลอจากสถานการณ์ชายแดน และน้ำผลไม้ชะลอ ไม่แยกตัวเลขนม ยอดแบรนด์ไตรมาส 3 ฿372.9m (−21.2%)'],'q326'],
+ ['Selling costs, first 9 months 2026','ค่าขายและกระจายสินค้า 9 เดือนแรก 2569','฿390.2m  (+22.5%)',['9M net profit ฿33.0m (−81.0%). Continuing-operations profit ฿80.3m. F45: ฿33.017m net profit for 9 months.','กำไรสุทธิ 9 เดือน ฿33.0m (−81.0%) กำไรงานต่อเนื่อง ฿80.3m F45: ฿33.017m'],'q326'],
+ ['Premium juice market (Nielsen)','ตลาดน้ำผลไม้พรีเมียม (Nielsen)','Malee 20.4% share',['No. 1 in premium RTD fruit juice, 12 months to Sep 2026. Whole RTD fruit-and-veg juice market ฿12,258.8m (+3.3% YoY); premium is 38.4% of that market and +16.9% YoY. Earlier figures (36% in Q4/2025 MD&A; 21.9% in 12 months to Jun 2026) used different periods; the MD&A does not fully explain the change.','อันดับ 1 ในน้ำผลไม้พร้อมดื่มพรีเมียม ช่วง 12 เดือนถึง ก.ย. 2569 ตลาดน้ำผักผลไม้รวม ฿12,258.8m (+3.3%) ส่วนพรีเมียม 38.4% ของตลาด และโต +16.9% ตัวเลขเก่า 36% (Q4/2568) และ 21.9% (ถึง มิ.ย. 2569) ใช้ช่วงคนละแบบ'],'q326'],
+ ['2026 official targets','เป้าปี 2569 ที่บริษัทแจ้ง','Sales growth 0–3%',['Unchanged. Gross-margin target revised to 17–19% (from 18–20%). SG&A to sales stays 13–15%.','ไม่เปลี่ยน เป้าอัตรากำไรขั้นต้นปรับเป็น 17–19% (จาก 18–20%) SG&A ต่อยอดขายยัง 13–15%'],'q326']
 ];
 
 /* 5 — rules */
@@ -688,7 +692,7 @@ const SUGAR_TAX=[ /* sugar per 100 ml, ฿ per litre now, before */
 
 /* 8 — watch list */
 const WATCH=[
- ['Nielsen juice-segment growth in Malee’s next quarterly report (Q3/2026). Is premium still growing and medium still falling?','ตัวเลข Nielsen กลุ่มน้ำผลไม้ในรายงานไตรมาสถัดไปของ Malee พรีเมียมยังโตไหม กลุ่มกลางยังลดไหม'],
+ ['Nielsen juice-segment growth in Malee’s next quarterly report (Q4/2026 / FY2026). After Q3, premium is still growing (+16.9% YoY) and medium is still falling (−31.1% YoY).','ตัวเลข Nielsen กลุ่มน้ำผลไม้ในรายงานไตรมาส 4 / ทั้งปี 2569 หลังไตรมาส 3 พรีเมียมยังโต (+16.9% YoY) กลุ่มกลางยังลด (−31.1% YoY)'],
  ['Tipco: its two new drinks (late 2026 / early 2027), coconut water price and how deep the 1 L promotions go.','Tipco: เครื่องดื่มใหม่ 2 ตัว ราคาน้ำมะพร้าว และความลึกของโปรโมชัน 1 ลิตร'],
  ['Coconut raw-material price (LH Bank index −49%). A cheap raw material invites cheap coconut-water rivals.','ราคามะพร้าวดิบ (ดัชนี LH −49%) ของถูกทำให้คู่แข่งราคาต่ำเข้ามา'],
  ['Matcha COCO at ฿35: ask 7-Eleven for the sell-out compared with plain ฿27.','COCO มัทฉะ ฿35: ขอยอดขายจาก 7-Eleven เทียบกับธรรมดา ฿27'],
@@ -1160,7 +1164,7 @@ function fresh(){
   let rt=L('not pulled','ยังไม่ได้ดึง');
   if(TRENDS.retrieved){const pr={};new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Bangkok',day:'numeric',month:'numeric',year:'numeric',hour:'2-digit',minute:'2-digit',hour12:false}).formatToParts(new Date(TRENDS.retrieved)).forEach(x=>pr[x.type]=x.value);
    rt=L(`${pr.day} ${MON[+pr.month-1][0]} ${pr.year}, ${pr.hour}:${pr.minute} (Bangkok)`,`${pr.day} ${MON[+pr.month-1][1]} ${+pr.year+543} เวลา ${pr.hour}:${pr.minute} น. (กรุงเทพฯ)`)}
-  return `<div class="fresh"><b>${L('Data freshness','ความใหม่ของข้อมูล')}:</b> ${L('market numbers up to Jun 2026 (Malee report 17 Aug 2026) · shop-website prices 25 Sep 2026 · launches up to 25 Sep 2026 · Google Trends pulled ','ตัวเลขตลาดถึง มิ.ย. 2569 (รายงาน Malee 17 ส.ค. 2569) · ราคาจากเว็บไซต์ร้านค้า 25 ก.ย. 2569 · สินค้าใหม่ถึง 25 ก.ย. 2569 · Google Trends ดึงเมื่อ ')}<b>${rt}</b> · ${L('launch table has no percentages (weekly points were not saved); file date ','ตารางสินค้าใหม่ไม่มีเปอร์เซ็นต์ (ไม่ได้เก็บจุดรายสัปดาห์) วันที่ไฟล์ ')}<b>${ltDate()}</b> · ${L('desk research as of 4 Oct 2026 (not re-checked). Added topics were not fetched. Launch percentages are not shown. Nothing updates by itself.','งานวิจัยตั้งโต๊ะ ณ 4 ต.ค. 2569 (ไม่ได้ตรวจใหม่) หัวข้อที่เพิ่มยังไม่ได้ดึง ไม่แสดงเปอร์เซ็นต์ของสินค้าใหม่ หน้านี้ไม่ได้อัปเดตเอง')}</div>`;
+  return `<div class="fresh"><b>${L('Data freshness','ความใหม่ของข้อมูล')}:</b> ${L('market numbers up to Jun 2026 (Malee report 17 Aug 2026) · shop-website prices 25 Sep 2026 · launches up to 25 Sep 2026 · Google Trends pulled ','ตัวเลขตลาดถึง มิ.ย. 2569 (รายงาน Malee 17 ส.ค. 2569) · ราคาจากเว็บไซต์ร้านค้า 25 ก.ย. 2569 · สินค้าใหม่ถึง 25 ก.ย. 2569 · Google Trends ดึงเมื่อ ')}<b>${rt}</b> · ${L('launch table has no percentages (weekly points were not saved); file date ','ตารางสินค้าใหม่ไม่มีเปอร์เซ็นต์ (ไม่ได้เก็บจุดรายสัปดาห์) วันที่ไฟล์ ')}<b>${ltDate()}</b> · ${L('company figures from the Q3/2026 MD&A published 11 Nov 2026; earlier desk research (4 Oct 2026) not fully re-checked. Added topics were not fetched. Launch percentages are not shown. Retailer prices still 25 Sep 2026. Nothing updates by itself.','ตัวเลขบริษัทจาก MD&A ไตรมาส 3/2569 เผยแพร่ 11 พ.ย. 2569 งานวิจัยตั้งโต๊ะเก่า (4 ต.ค. 2569) ยังไม่ได้ตรวจใหม่ทั้งชุด หัวข้อที่เพิ่มยังไม่ได้ดึง ไม่แสดงเปอร์เซ็นต์ของสินค้าใหม่ ราคาร้านค้ายังเป็น 25 ก.ย. 2569 หน้านี้ไม่ได้อัปเดตเอง')}</div>`;
 }
 function vInsights(){
   const nav=[['top5','Top 5','ข้อสรุป 5 ข้อ'],['market','Market size','ขนาดตลาด'],['trends','Search trends','เทรนด์การค้นหา'],['launch','New launches','สินค้าใหม่'],['ladder','Price ladder','ราคาต่อ 100 มล.'],['rules','Health & rules','สุขภาพและกฎ'],['map','White-space map','แผนที่ช่องว่าง'],['malee','Malee numbers','ตัวเลข Malee'],['watch','Watch & refresh','ติดตามและอัปเดต']];
@@ -1223,7 +1227,7 @@ function renderChrome(){
   document.getElementById('lbl-lang').textContent=L('Language','ภาษา');
   document.querySelectorAll('#langseg button').forEach(b=>b.classList.toggle('on',b.dataset.lang===state.lang));
   document.getElementById('prn').textContent=L('Print or save as PDF','พิมพ์ / บันทึกเป็น PDF');
-  document.getElementById('foot').textContent=L('Unofficial, independent analysis built from public sources. It is not a Malee publication and has not been reviewed or confirmed by Malee Group. Market insights = real public data (each item labelled real / estimate / not found, with its source). Everything else = SAMPLE, not real Malee numbers. Page updated 8 Nov 2026 (Bangkok time). Source dates differ: the original 12 category series were pulled 8 Nov 2026 at 09:59 Bangkok and were not re-downloaded; 12 added topics were not fetched (Google HTTP 429) and have no figures; launch percentages are not shown because weekly points were not saved; retailer prices checked 25 Sep 2026; desk research and company figures as of 4 Oct 2026. Search interest is not sales. Starting weights and marks are ideas to talk about, not Malee rules.','การวิเคราะห์อิสระที่ไม่เป็นทางการ จัดทำจากแหล่งข้อมูลสาธารณะ ไม่ใช่เอกสารเผยแพร่ของ Malee และ Malee Group ยังไม่ได้ตรวจสอบหรือยืนยัน แท็บ Market insights = ข้อมูลจริงจากแหล่งสาธารณะ (แต่ละรายการมีป้ายจริง / ประมาณการ / ไม่พบ พร้อมแหล่งที่มา) ส่วนอื่นทั้งหมด = ข้อมูลตัวอย่าง ไม่ใช่ตัวเลขจริงของ Malee อัปเดตหน้านี้ 8 พ.ย. 2569 (เวลากรุงเทพฯ) วันที่ของแหล่งข้อมูลต่างกัน: อนุกรม 12 หมวดเดิมดึงเมื่อ 8 พ.ย. 2569 เวลา 09:59 น. และไม่ได้ดึงซ้ำ หัวข้อที่เพิ่ม 12 หัวข้อยังไม่ได้ดึง (Google ตอบ HTTP 429) จึงไม่มีตัวเลข ไม่แสดงเปอร์เซ็นต์ในตารางสินค้าใหม่เพราะไม่ได้เก็บจุดรายสัปดาห์ ราคาจากเว็บไซต์ร้านค้า 25 ก.ย. 2569 งานวิจัยและตัวเลขบริษัท ณ 4 ต.ค. 2569 ความสนใจในการค้นหาไม่ใช่ยอดขาย น้ำหนักและคะแนนเริ่มต้นเป็นแค่ข้อเสนอให้คุยกัน ไม่ใช่กฎของ Malee');
+  document.getElementById('foot').textContent=L('Unofficial, independent analysis built from public sources. It is not a Malee publication and has not been reviewed or confirmed by Malee Group. Market insights = real public data (each item labelled real / estimate / not found, with its source). Everything else = SAMPLE, not real Malee numbers. Page updated 14 Nov 2026 (Bangkok time). Company figures refreshed from the Q3/2026 MD&A published 11 Nov 2026 (F45 checked the same day). Source dates still differ: the original 12 category series were pulled 8 Nov 2026 at 09:59 Bangkok and were not re-downloaded; 12 added topics were not fetched (Google HTTP 429) and have no figures; launch percentages are not shown because weekly points were not saved; retailer prices last checked 25 Sep 2026 (not re-checked this update). Search interest is not sales. Starting weights and marks are ideas to talk about, not Malee rules.','การวิเคราะห์อิสระที่ไม่เป็นทางการ จัดทำจากแหล่งข้อมูลสาธารณะ ไม่ใช่เอกสารเผยแพร่ของ Malee และ Malee Group ยังไม่ได้ตรวจสอบหรือยืนยัน แท็บ Market insights = ข้อมูลจริงจากแหล่งสาธารณะ (แต่ละรายการมีป้ายจริง / ประมาณการ / ไม่พบ พร้อมแหล่งที่มา) ส่วนอื่นทั้งหมด = ข้อมูลตัวอย่าง ไม่ใช่ตัวเลขจริงของ Malee อัปเดตหน้านี้ 14 พ.ย. 2569 (เวลากรุงเทพฯ) ตัวเลขบริษัทอัปเดตจาก MD&A ไตรมาส 3/2569 ที่เผยแพร่ 11 พ.ย. 2569 (ตรวจ F45 วันเดียวกัน) วันที่ของแหล่งข้อมูลยังต่างกัน: อนุกรม 12 หมวดเดิมดึงเมื่อ 8 พ.ย. 2569 เวลา 09:59 น. และไม่ได้ดึงซ้ำ หัวข้อที่เพิ่ม 12 หัวข้อยังไม่ได้ดึง (Google ตอบ HTTP 429) จึงไม่มีตัวเลข ไม่แสดงเปอร์เซ็นต์ในตารางสินค้าใหม่เพราะไม่ได้เก็บจุดรายสัปดาห์ ราคาจากเว็บไซต์ร้านค้าครั้งล่าสุด 25 ก.ย. 2569 (การอัปเดตนี้ไม่ได้ตรวจราคาใหม่) ความสนใจในการค้นหาไม่ใช่ยอดขาย น้ำหนักและคะแนนเริ่มต้นเป็นแค่ข้อเสนอให้คุยกัน ไม่ใช่กฎของ Malee');
   document.body.dataset.tb=state.tab;renderTabs();
 }
 
