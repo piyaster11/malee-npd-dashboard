@@ -6,14 +6,15 @@ Single-file static dashboard (`index.html`, EN/ไทย toggle, no external scr
 - **Market insights** tab: public data, each item labelled real / estimate / not found, with its source and date. Google Trends percentages are shown only when they can be recomputed from the saved weekly file under the rules below.
 - **All other tabs**: SAMPLE data to show how the tools work. Not real company numbers.
 
-## Source freshness (page updated 8 Nov 2026, Bangkok time)
+## Source freshness (page updated 14 Nov 2026, Bangkok time)
 | Data | Date | What this update did |
 |---|---|---|
+| Company figures, Nielsen market shares quoted in Malee's MD&A, and 2026 targets | Q3/2026 MD&A published 11 Nov 2026; SET F45 checked the same day | Replaced H1/Q2 cards with official 9M and Q3 2026 figures. Added the 30 Sep Long Quan Safe Food divestment and the revised 17–19% gross-margin target. |
 | Google Trends, original 12 Thai category words (Thailand, 5 years, weekly) | pulled 8 Nov 2026, 09:59 Bangkok | Kept the saved weekly points. Not re-downloaded. |
 | 12 added category words | not fetched, 8 Nov 2026 | First request to Google Trends returned HTTP 429. No further requests. No charts and no percentages. |
 | Launch-tracker Trend column | file dated 8 Nov 2026 | Percentages removed. Weekly points were not in the file. |
-| Retailer website prices (Lotus's, Big C, Tops, Makro public pages) | checked 25 Sep 2026 | Not re-checked. |
-| Desk research, company filings, market figures | as of 4 Oct 2026 | Not re-checked. |
+| Retailer website prices (Lotus's, Big C, Tops, Makro public pages) | checked 25 Sep 2026 | Not re-checked in this update. |
+| Earlier desk research (non-filing items) | as of 4 Oct 2026 | Not fully re-checked, except where the Q3 MD&A replaced a figure. |
 
 ## Google Trends method
 - Geography is Thailand (`geo=TH`) for every category link and every launch link that has a saved term. The one launch with no saved term (UFC, Vietnam only) has no link and no percentage.
