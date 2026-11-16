@@ -6,14 +6,16 @@ Single-file static dashboard (`index.html`, EN/ไทย toggle, no external scr
 - **Market insights** tab: public data, each item labelled real / estimate / not found, with its source and date. Google Trends percentages are shown only when they can be recomputed from the saved weekly file under the rules below.
 - **All other tabs**: SAMPLE data to show how the tools work. Not real company numbers.
 
-## Source freshness (page updated 14 Nov 2026, Bangkok time)
+## Source freshness (page updated 16 Nov 2026, Bangkok time)
 | Data | Date | What this update did |
 |---|---|---|
-| Company figures, Nielsen market shares quoted in Malee's MD&A, and 2026 targets | Q3/2026 MD&A published 11 Nov 2026; SET F45 checked the same day | Replaced H1/Q2 cards with official 9M and Q3 2026 figures. Added the 30 Sep Long Quan Safe Food divestment and the revised 17–19% gross-margin target. |
+| Launch tracker and the sentences that quote those launches | checked 16 Nov 2026 | Added 7 rows dated 8 Oct–11 Nov 2026, each with a source URL. No prices, dates or pack sizes were filled in where the source did not state them. Google Trends was not re-queried, so the new rows have no search term and no percentage. |
+| Juice-segment chart labels | Q3/2026 MD&A, 11 Nov 2026 | The 14 Nov refresh had already stored the 12 months to Sep 2026 (market ฿12,258.8m, +3.3%; premium +16.9%; Others +48.5%; medium −31.1%). This update changed the chart title, the hatched-bar note and the bar scale so those stored figures are no longer labelled as the June cut. The older +24% / +4.5% June figures stay only where the text still cites the Q2 report. |
+| Company figures, Nielsen market shares quoted in Malee's MD&A, and 2026 targets | Q3/2026 MD&A published 11 Nov 2026; SET F45 checked the same day | 14 Nov refresh. This update added the Q3 note that branded juice and coconut-water sales slowed, that canned-rambutan orders grew, and that “Hero Products” are still in development. No newer filing was found on 16 Nov. |
 | Google Trends, original 12 Thai category words (Thailand, 5 years, weekly) | pulled 8 Nov 2026, 09:59 Bangkok | Kept the saved weekly points. Not re-downloaded. |
 | 12 added category words | not fetched, 8 Nov 2026 | First request to Google Trends returned HTTP 429. No further requests. No charts and no percentages. |
 | Launch-tracker Trend column | file dated 8 Nov 2026 | Percentages removed. Weekly points were not in the file. |
-| Retailer website prices (Lotus's, Big C, Tops, Makro public pages) | checked 25 Sep 2026 | Not re-checked in this update. |
+| Retailer website prices (Lotus's, Big C, Tops, Makro public pages) | ladder still 25 Sep 2026 | The price ladder was not rebuilt. One new shelf price was read on 16 Nov 2026: Coco Royal matcha 350 ml at ฿35 on the Lotus’s product page, cited only on that launch row. |
 | Earlier desk research (non-filing items) | as of 4 Oct 2026 | Not fully re-checked, except where the Q3 MD&A replaced a figure. |
 
 ## Google Trends method
@@ -82,9 +84,21 @@ Not duplicates of the original 12. Status for every one: **not fetched**. Source
 `รับจ้างผลิตเครื่องดื่ม` is a contract-manufacturing phrase, not a shopper product. `กะทิ` is coconut milk, not coconut water (`น้ำมะพร้าว`), which is already in the original 12. `พรีไบโอติก` and `โพสต์ไบโอติก` are not the same word as `โพรไบโอติก`.
 
 ## Launch tracker
-The table has 15 rows. The saved trend file has 16 keys. `2026-10-01|Tipco` (`Tipco coconut`, too few searches, broad brand-plus-category term) has no row in the table, so it is not shown and has no percentage.
+The 8 Nov 2026 audit had 15 rows. The 16 Nov 2026 refresh added 7, so the table now has 22. The saved trend file still has 16 keys and was not re-downloaded. `2026-10-01|Tipco` (`Tipco coconut`, too few searches, broad brand-plus-category term) still has no row: no dated public launch for that key was found. The 7 new rows have no saved search term, so they have no Trends link and no percentage.
 
-Of the 15 shown rows: 11 were saved as too few searches (still no percentage; each has a source link), 3 had a summary percentage which is removed, and 1 (UFC, outside Thailand) has no saved search term, so it has no link and no percentage.
+Of the original 15 rows: 11 were saved as too few searches (still no percentage; each has a source link), 3 had a summary percentage which is removed, and 1 (UFC, outside Thailand) has no saved search term, so it has no link and no percentage.
+
+Rows added 16 Nov 2026 (newest first):
+
+| Date | Who | What | Price | Source |
+|---|---|---|---|---|
+| 11 Nov 2026 | Malee | “Hero Products” still in development, not on sale | — | Q3/2026 MD&A |
+| 9 Nov 2026 | Dutch Mill | Triple Up drinking yoghurt (fibre, SD1, SD11, vitamin D) | 7-Eleven promo, 2 pieces ฿18 (usual ฿20); pack size not stated | Mini Me Insights; Sale Here promo page |
+| 3 Nov 2026 | Dutch Mill | Bioocha kombucha, 400 ml, original and lychee | not found | Mini Me Insights |
+| 20 Oct 2026 | Chabaa | Chocolate coconut water | not found; pack size not stated | Mini Me Insights |
+| 16 Oct 2026 | Royal Plus | Coco Royal Uji matcha, 350 ml | ฿35 at Lotus’s on 16 Nov 2026; label 98% coconut water and 0.3% matcha | Kaohoon; Lotus’s product page |
+| 11 Oct 2026 | Tipco | Just Squeezed 100% Hom Suwan pineapple and 100% Tunisian pomegranate, 7-Eleven only | not found; pack size not stated | Mini Me Insights |
+| 8 Oct 2026 | Doi Kham | Tomato Extract with the National Cancer Institute | not found; not described as a nationwide shelf launch | Doi Kham press release |
 
 - `ดอยคำ มะเขือเทศ`: stored -1.0% from recent 3.5 and prior 3.6. Recomputed from those two averages only: -2.7778%. Weekly points were not saved. Not shown.
 - `ทิปโก้`: stored -15.0% from recent 3.0 and prior 3.6. Recomputed from those two averages only: -16.6667%. Weekly points were not saved. Not shown.
@@ -97,8 +111,8 @@ Broad terms, a brand or a brand plus a category, not one product: `Tipco น้�
 - Category year-before percentages still shown: **11**. Earliest-year percentages still shown: **9**.
 - Category rows with at least one percentage hidden for a low base: **3**.
 - Added topics measured: **0**. Added topics not fetched: **12**.
-- Launch percentages shown: **0**. Launch percentages removed: **3**. Shown rows still “too few searches”: **11**. Shown rows with no term: **1**. One extra too-few key (`Tipco coconut`) is not on the table.
-- Google requests in this update: **1** (HTTP 429). No retry and no other endpoint.
+- As of the 8 Nov audit: launch percentages shown **0**; removed **3**; too-few rows **11**; rows with no term **1**. After 16 Nov 2026 the table has **22** rows. The 11 too-few rows are unchanged. Rows with no saved term are now **8** (the old UFC row, plus the 7 new rows). `Tipco coconut` is still only in the trend file.
+- Google requests on 8 Nov 2026: **1** (HTTP 429). No retry. The 16 Nov 2026 refresh did not call Google.
 
 ## Other method notes
 - No private, internal or personal data is included. Thai text is machine-written.
