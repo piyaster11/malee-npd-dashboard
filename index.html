@@ -1223,7 +1223,7 @@ function evChip(i){const e=EVID[i.ev];return `<span class="ev l${e.l}"><i></i>${
 
 /* ---------- tabs ---------- */
 const TABS=[['insights','Market insights','ข้อมูลตลาด'],['summary','Summary','สรุป'],['score','Score the ideas','ให้คะแนนไอเดีย'],['data','Data we need','ข้อมูลที่ต้องการ'],['board','Steps before launch','ขั้นตอนก่อนเปิดตัว'],['ready','Ready to launch?','พร้อมเปิดตัวไหม'],['post','After launch','หลังเปิดตัว'],['mortem','Learn from the past','เรียนรู้จากอดีต']];
-function renderTabs(){document.querySelector('#tabs .wrap').innerHTML=TABS.map(t=>`<button data-tab="${t[0]}" class="${state.tab===t[0]?'on':''}">${L(t[1],t[2])}</button>`).join('')}
+function renderTabs(){document.querySelector('#tabs .wrap').innerHTML=TABS.map(t=>`<button data-tab="${t[0]}" class="${state.tab===t[0]?'on':''}">${L(t[1],t[2])}</button>`).join('')+`<a class="navlink" href="global-trends.html" style="color:var(--accent);padding:11px 12px;white-space:nowrap;text-decoration:none;font-weight:600">${L('Global trends ↗','เทรนด์ต่างประเทศ ↗')}</a>`}
 function renderChrome(){
   document.documentElement.lang=state.lang;document.body.dataset.lg=state.lang;
   const real=state.tab==='insights';document.querySelector('.banner').classList.toggle('real',real);
