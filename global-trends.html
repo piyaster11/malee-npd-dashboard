@@ -4,7 +4,7 @@
 <title>Global trends — NPD dashboard (public data)</title><style>
 
 :root{
-  --bg:#ffffff; --bg2:#f7f8f7; --ink:#14181b; --mute:#667075; --faint:#98a1a5; --line:#e6e9e8;
+  --bg:#ffffff; --bg2:#f7f8f7; --ink:#14181b; --mute:#667075; --faint:#5c656a; --line:#e6e9e8;
   --accent:#0a7b5c; --accent-soft:#e6f3ee; --warn:#b26a00; --warn-soft:#fff5e0; --bad:#b3261e; --bad-soft:#fdecea;
   --radius:10px;
   --font:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans","Noto Sans Thai","Sarabun",Arial,sans-serif;
@@ -426,6 +426,15 @@ nav.tabs a.navlink.on{color:var(--ink);border-bottom-color:var(--accent);font-we
 .srcl li{margin-bottom:4px;font-size:12.5px}
 .kv{display:grid;grid-template-columns:150px 1fr;gap:4px 14px;font-size:13px}.kv dt{font-weight:600}.kv dd{margin:0;color:var(--ink)}
 a{color:var(--accent)}
+
+button:focus-visible,select:focus-visible,input:focus-visible,a.navlink:focus-visible,.chip:focus-visible,.btn:focus-visible{
+  outline:2px solid var(--accent);outline-offset:2px;
+}
+
+@media (max-width:640px){
+  .g2{grid-template-columns:1fr}
+}
+.card{overflow-x:auto;-webkit-overflow-scrolling:touch}
 </style></head><body>
 <div class="banner real" role="alert"><b>REAL PUBLIC DATA — each item shows source and date</b><span>Every figure links to a public source. Grey tags = taken from a search summary and not opened. Scores are judgement, not data. No Malee inside data is used.</span></div>
 <header class="top"><div class="wrap"><div class="hrow"><div class="brand"><h1>New Product Dashboard</h1><small>Malee Group · new products · Global trends</small></div>
