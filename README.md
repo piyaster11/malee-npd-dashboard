@@ -118,3 +118,11 @@ Broad terms, a brand or a brand plus a category, not one product: `Tipco น้�
 - No private, internal or personal data is included. Thai text is machine-written.
 - Planning tabs (Summary, Score the ideas, and the checklists) remain SAMPLE.
 
+## Nectar & juice drinks tab (added 24 Nov 2026, Bangkok time)
+- New top tab, same EN/ไทย toggle and real-public-data banner as Market insights.
+- Scope: nectars (generally 25–99% juice) and juice drinks (generally under 25% juice), plus fruit-flavoured water as a nearby set. Definitions from the public contents page of Mintel’s 2024 Thailand Juice and Juice Drinks report. 100% juice stays on Market insights.
+- Thailand segment figures are the ones already on the page: Nielsen via the Q3/2026 MD&A, 12 months to Sep 2026 (medium 26–89% juice −31.1%; economy 20–25% −4.3%; super-economy 0–19% +4.8%).
+- Flavour status (rising / stable-core / watch) is a reading of public launches and public analyst notes, not a Nielsen flavour share and not sales. No public source found in this desk check ranks a specific nectar flavour as declining in Thailand.
+- Google Trends were not downloaded for flavour words. Cards link to Google Trends Explore only; no percentages are shown.
+- NPD ideas are labelled as ideas to test, not recommendations.
+- Desk research date: 24 Nov 2026 (Bangkok time). Paywalled Mintel / Innova / Euromonitor tables were not used.
